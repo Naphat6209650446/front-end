@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เหตุผลการยื่นคำร้อง</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .bg-color {
+            background-color: #fdf5c9; 
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 400px;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-height: 90vh; /* กำหนดความสูงสูงสุดเพื่อไม่ให้กล่องทับ */
+            overflow-y: auto; /* ให้สามารถเลื่อนในแนวตั้งได้ */
+            padding-bottom: 40px;
+        }
+
+        .logo-img {
+            margin-top: 20px;
+            height: 20%;
+        }
+
+        .login-form {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* เพิ่ม CSS สำหรับข้อความของ textarea */
+        textarea {
+            width: 100%;  /* ทำให้ textarea กว้างเต็มช่อง */
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-color">
+        <div style="text-align: center; margin-top: 0; height: 100%;">
+            <img src="img/TU.png" alt="TU" class="logo-img">
+        </div>
+        <div class="login-container">
+            <form id="requestForm" class="login-form">
+                <h4 class="text-left">เหตุผลการยื่นคำร้อง</h4>
+                <input type="radio" id="financialProblem" name="reason" value="ปัญหาด้านการเงิน">
+                <label for="financialProblem">ปัญหาด้านการเงิน</label><br>
+
+                <input type="radio" id="healthProblem" name="reason" value="ปัญหาด้านสุขภาพ">
+                <label for="healthProblem">ปัญหาด้านสุขภาพ</label><br>
+
+                <input type="radio" id="other" name="reason" value="ปัญหาด้านอื่นๆ">
+                <label for="other">อื่นๆ (โปรดระบุ)</label><br>
+
+                <!-- ส่วนกรอกข้อความที่ถูกซ่อนไว้ -->
+                <div id="otherRequestInput" style="display: none;">
+                    <label for="otherRequestText">กรุณาระบุคำร้องอื่นๆ:</label><br>
+                    <textarea id="otherRequestText" name="otherRequest" rows="4" placeholder="กรุณากรอกคำร้องของคุณที่นี่"></textarea><br>
+                </div>
+
+                <!-- ปุ่มยืนยัน -->
+                <button type="submit" id="submitBtn" class="btn btn-primary w-100 mt-3">ยืนยัน</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        // ใช้ JavaScript เพื่อแสดง/ซ่อนช่องกรอกข้อความเมื่อเลือก "คำร้องอื่นๆ"
+        const otherRadioButton = document.getElementById('other'); // ใช้ ID ที่ถูกต้องที่นี่
+        const otherRequestInput = document.getElementById('otherRequestInput');
+        const submitBtn = document.getElementById('submitBtn');
+        const form = document.getElementById('requestForm');
+
+        // เมื่อเลือกคำร้อง "อื่นๆ", ให้แสดงช่องกรอกข้อความ
+        otherRadioButton.addEventListener('change', function() {
+            if (this.checked) {
+                otherRequestInput.style.display = 'block';  // แสดงช่องกรอกข้อความ
+            }
+        });
+
+        // ถ้ามีการเลือกตัวเลือกอื่น ๆ, ให้ซ่อนช่องกรอกข้อความ
+        const radioButtons = document.querySelectorAll('input[type="radio"]');
+        radioButtons.forEach(button => {
+            if (button !== otherRadioButton) {
+                button.addEventListener('change', function() {
+                    otherRequestInput.style.display = 'none';  // ซ่อนช่องกรอกข้อความ
+                });
+            }
+        });
+
+        // เมื่อกดปุ่ม "ยืนยัน", ซ่อนปุ่ม และเปลี่ยนหน้าไปยัง loginSucc.html
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // ป้องกันการส่งฟอร์ม
+
+            // ซ่อนปุ่ม "ยืนยัน"
+            submitBtn.style.display = 'none';
+
+            // แสดงข้อความแจ้งเตือน
+            alert("คำร้องของคุณได้รับการยืนยันแล้ว!");
+
+            // หลังจากกด OK, นำทางไปยัง loginSucc.html
+            window.location.href = 'loginSucc.html';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>login succ</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .bg-color {
+            background-color: #fdf5c9; 
+            height: 100vh;
+            width: 100%;
+            position: relative;
+        }
+        .bg-image {
+            margin-top: 0;
+            background-image: url('img/Picture1.png');
+            height: calc(100vh - 40px);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            position: relative;
+            filter: brightness(70%);
+        }
+
+            .login-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 340px;
+        margin-top: 20px;
+        background-color: transparent; /* เปลี่ยนเป็นโปร่งใส */
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: none; /* ลบเงา */
+        max-height: 90vh;
+        overflow-y: auto;
+        padding-bottom: 40px;
+        }   
+
+        .btn-custom {
+            padding: 12px 20px;         /* ปรับขนาดปุ่ม */
+            font-size: 1.2rem;          /* ปรับขนาดตัวหนังสือ */
+            background-color: #d45e5e;  /* สีพื้นหลังเป็นสีเหลือง */
+            color: black;               /* ตัวหนังสือเป็นสีดำ */
+            border: none;               /* ลบกรอบปุ่ม */
+            border-radius: 5px;         /* มุมปุ่มโค้ง */
+            margin-top: 20px;            /* เว้นระยะห่างจากขอบบน */
+            width: 10%;                 /* ให้ปุ่มยืดเต็มความกว้าง */
+            display: block;             /* ให้ปุ่มขึ้นบรรทัดใหม่ */
+        }
+
+        .logo-img {
+            margin-top: 20px;
+            height: 20%;
+        }
+
+        .login-form {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-color">
+        <div style="text-align: center; margin-top: 0; height: 100%;">
+            <img src="img/TU.png" alt="TU" class="logo-img">
+            <h5 id="usernameDisplay">ยินดีต้อนรับคุณ <span id="displayName"></span></h5>
+            <form class="login-form">
+        <button type="button" onclick="window.location.href='req.html'" class="btn btn-custom">เขียนคำร้องใหม่</button>
+        <button type="button" onclick="window.location.href='login.html'" class="btn btn-custom">ดูประวัติการยื่นคำร้อง</button>
+        <button type="button" onclick="window.location.href='login.html'" class="btn btn-custom">ติดตามสถานะคำร้อง</button>
+        <button type="button" onclick="window.location.href='login.html'" class="btn btn-custom" >ออกจากระบบ</button>
+        </form>
+        </div>
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        // ดึงค่าจาก sessionStorage
+        const username = sessionStorage.getItem('username');
+        const displayname_th = sessionStorage.getItem('displayname_th');
+
+        // แสดงค่าที่ดึงมาในส่วน header
+        document.getElementById('usernameDisplay').textContent = `ยินดีต้อนรับคุณ ${displayname_th} ${username}`;
+        document.getElementById('displayName').textContent = displayname_th;
+
+        const apiKey = sessionStorage.getItem('apiKey');
+        
+        // ถ้าไม่มี apiKey หรือ apiKey ไม่ถูกต้อง ให้ลิงก์กลับไปที่หน้า login
+        if (!apiKey) {
+            alert('You are not authorized to access this page. Please log in again.');
+            window.location.href = 'login.html';  // หากไม่มี apiKey ให้กลับไปที่หน้า login
+        } else {
+            console.log('API Key is valid:', apiKey);
+            // สามารถเพิ่มโค้ดการทำงานเพิ่มเติมที่นี่ เช่นแสดงข้อมูลผู้ใช้
+        }
+        
+  </script>
+</body>
+</html>
